@@ -136,6 +136,16 @@ class BakedImage:
     image: OpenCVImage
 
     def save(self, path: str):
+        """
+        Will create folder automatically if given folder does not exists.
+        """
+
+        # # Check if given path is file, and make dir if necessary.
+        if os.path.isfile(path):
+            raise RuntimeError(f"[ERR ] Cannot write to path `{path}` since it is a file.")
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+
+        # # Write to that path.
         is_image_write_success = cv2.imwrite(path, self.image)
         if not is_image_write_success:
             raise OSError(f"[ERR ] Failed to write to path `{path}`.")
