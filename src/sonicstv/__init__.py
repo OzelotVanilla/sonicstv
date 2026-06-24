@@ -8,7 +8,10 @@ __all__ = [
     "bake",
 
     # # pic_manip.line_process_algo
-    "coverAll", "coverRandomly", "stampWindowed",
+    "coverAll", "coverRandomly",
+    "stampWindowed",
+    "nudgeAll",
+    # # pic_manip.line_process_algo Type
     "PictureMonocolourLine", "LineProcessor",
 
     # # music
