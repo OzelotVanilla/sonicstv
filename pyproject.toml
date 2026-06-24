@@ -7,7 +7,9 @@ name = "sonicstv"
 version = "0.0.0.0"
 description = "A non-ML SSTV-oriented melodic visual watermark tool."
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "opencv-python", "numpy", "returns"
+]
 
 [project.optional-dependencies]
 dev = [
