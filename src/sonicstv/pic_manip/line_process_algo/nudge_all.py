@@ -1,5 +1,6 @@
 from sonicstv.pic_manip.line_process_algo.type import PictureMonocolourLine
 from sonicstv.sstv_spec import SSTVSpec, ColourValue
+from sonicstv.pic_manip.line_process_algo.util import clampColourValue
 
 
 def nudgeAll(
@@ -19,16 +20,10 @@ def nudgeAll(
     if isinstance(colour_value, list):
         result_line = pic_line.copy()
         for i in range(min(len(pic_line), len(colour_value))):
-            result_line[i] = max(0, min(
-                round(pic_line[i] + (colour_value[i] - pic_line[i]) * strength),
-                255
-            ))
+            result_line[i] = clampColourValue(round(pic_line[i] + (colour_value[i] - pic_line[i]) * strength))
         return result_line
     else:
         return [
-            max(0, min(
-                round(x + (colour_value - x) * strength),
-                255
-            ))
+            clampColourValue(round(x + (colour_value - x) * strength))
             for x in pic_line
         ]
