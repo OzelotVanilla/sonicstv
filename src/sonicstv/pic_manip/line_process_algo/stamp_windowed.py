@@ -61,7 +61,7 @@ def stampWindowed(
         if len(colour_value) != pixel_needed:
             old_indexes = numpy.linspace(0, len(colour_value) - 1, len(colour_value))
             new_indexes = numpy.linspace(0, len(colour_value) - 1, pixel_needed)
-            homogen_colour_value = numpy.interp(new_indexes, old_indexes, colour_value).tolist()
+            homogen_colour_value = numpy.interp(new_indexes, old_indexes, colour_value).astype(int).tolist()
         colour_values_to_write = [
             homogen_colour_value[i] if random.random() < strength else pic_line[i]
             for i in range(calculated_left_offset, min(sstv_spec.image_width, pixel_needed + calculated_left_offset))
