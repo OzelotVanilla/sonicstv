@@ -8,7 +8,10 @@ def nudgeAll(
     *, strength: float = 0.25
 ) -> PictureMonocolourLine:
     """
-    Nudge the whole channel/component toward given value.
+    Nudge the pixels in the whole channel/component toward given value.
+
+    **Notice**: Unlike `biasAll`, which calculates the average of each line (all pixel gets same move),
+     `nudgeAll` checks/moves pixel by pixel (farther pixel value got bigger move).
 
     ### Parameters:
     * `strength`: How hard will the original colour being pushed to target colour.

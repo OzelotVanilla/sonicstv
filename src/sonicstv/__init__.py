@@ -11,6 +11,7 @@ __all__ = [
     "coverAll", "coverRandomly",
     "stampWindowed",
     "nudgeAll",
+    "biasAll",
     # # pic_manip.line_process_algo Type
     "PictureMonocolourLine", "LineProcessor",
 
