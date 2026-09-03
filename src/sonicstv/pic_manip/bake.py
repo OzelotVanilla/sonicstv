@@ -135,14 +135,14 @@ def burnSheetIntoImage(
 class BakedImage:
     image: OpenCVImage
 
-    def save(self, path: str):
+    def save(self, path: str, *, should_overwrite_if_existed: bool = False):
         """
         Will create folder automatically if given folder does not exists.
         """
 
         # # Check if given path is file, and make dir if necessary.
-        if os.path.isfile(path):
-            raise RuntimeError(f"[ERR ] Cannot write to path `{path}` since it is a file.")
+        if not should_overwrite_if_existed and os.path.isfile(path):
+            raise RuntimeError(f"[ERR ] Cannot write to path `{path}` since it already existed.")
         os.makedirs(os.path.dirname(path), exist_ok=True)
 
         # # Write to that path.
