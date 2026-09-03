@@ -10,7 +10,7 @@ __all__ = [
     # # pic_manip.line_process_algo
     "coverAll", "coverRandomly",
     "stampWindowed",
-    "nudgeAll",
+    "nudgeAll", "nudgeAllAdaptively",
     "biasAll",
     # # pic_manip.line_process_algo Type
     "PictureMonocolourLine", "LineProcessor",
