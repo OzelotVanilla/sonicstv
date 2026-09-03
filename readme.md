@@ -1,8 +1,13 @@
 SonicSTV
 ========
 
-A tool to add hard-to-see watermarks to pictures.
+A tool to alter pictures, adding melody information layer to the picture,
+ while preserving the recognisability.
 When the picture is transmitted through SSTV, it will produce melodic-alike sound.
+
+Notice: This project is not aimed to produce steganography-level result.
+It aims to make SSTV transmit-time recognisable melodic sound,
+ while preserving the recognisability of picture.
 
 
 Usage
