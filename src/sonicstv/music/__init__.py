@@ -3,7 +3,7 @@ from sonicstv.music.sheet import Sheet
 
 __all__ = [
     # note
-    "Note", "SingleFreqNote",
+    "Note", "SingleFreqNote", "RestNote",
 
     # sheet
     "Sheet"

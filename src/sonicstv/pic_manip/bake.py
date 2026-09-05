@@ -6,9 +6,9 @@ from returns.maybe import Maybe, Some, Nothing
 from returns.result import Result, Success, Failure
 from dataclasses import dataclass
 
-from sonicstv.music.sheet import Sheet
+from sonicstv.music import Sheet, RestNote
 from sonicstv.sstv_spec import SSTVSpec, MartinM1
-from sonicstv.pic_manip.line_process_algo import coverRandomly, LineProcessor
+from sonicstv.pic_manip.line_process_algo import coverRandomly, LineProcessor, PictureMonocolourLine
 
 
 type OpenCVImage = cv2.typing.MatLike
@@ -101,13 +101,21 @@ def burnSheetIntoImage(
             if note is None:
                 return Success(result_image)
 
-            colour_value = note.getColourValue(sstv_spec)
-            line_result = line_process_algo(
-                image[i, :, channel_index].tolist(),
-                colour_value,
-                sstv_spec
-            )
+            # # Get colour line that covered by note.
+            line_result: PictureMonocolourLine
+            # If rest note, leave component not change.
+            if isinstance(note, RestNote):
+                line_result = image[i, :, channel_index].tolist()
+            # If not rest note, use line processor to get processed line.
+            else:
+                colour_value = note.getColourValue(sstv_spec)
+                line_result = line_process_algo(
+                    image[i, :, channel_index].tolist(),
+                    colour_value,
+                    sstv_spec
+                )
 
+            # # Write processed line to the buffer.
             match channel_type:
                 case "B":
                     line[:, 0] = line_result

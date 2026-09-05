@@ -25,7 +25,7 @@ class Note(AbstractClass):
 
 class SingleFreqNote(Note):
     """
-    Note that only
+    Note that only has one frequency to play.
     """
 
     freq: float
@@ -44,3 +44,19 @@ class SingleFreqNote(Note):
 
     def getColourValue(self, sstv_spec: type[SSTVSpec]) -> ColourValue | list[int]:
         return sstv_spec.convertFreqToColourValue(self.freq)
+
+
+class RestNote(Note):
+    """
+    Note that plays no frequency, and add no overlays to the original pic.
+    """
+
+    def __init__(self, duration_frame: NoteDuration = 1) -> None:
+        super().__init__()
+        self.duration_frame = duration_frame
+
+    def getFreq(self) -> FrequencyValue | list[FrequencyValue]:
+        return []
+
+    def getColourValue(self, sstv_spec: type[SSTVSpec]) -> ColourValue | list[ColourValue]:
+        return []
