@@ -6,7 +6,7 @@ from returns.maybe import Maybe, Some, Nothing
 from returns.result import Result, Success, Failure
 from dataclasses import dataclass
 
-from sonicstv.music import Sheet, RestNote
+from sonicstv.music import Note, Sheet, RestNote
 from sonicstv.sstv_spec import SSTVSpec, MartinM1
 from sonicstv.pic_manip.line_process_algo import coverRandomly, LineProcessor, PictureMonocolourLine
 
@@ -87,19 +87,25 @@ def burnSheetIntoImage(
 
     # # Process lines.
     notes = iter(sheet.notes)
+    note = next(notes)
     slot_index = 0
 
     for i in range(sstv_spec.image_height):
         line = result_image[i].copy()
 
+        duration_frame_remained = 0
         for channel_index, channel_type in enumerate(sstv_spec.line_scan_sequence):
             if slot_index < sheet.offset_start:
                 slot_index += 1
                 continue
 
-            note = next(notes, None)
+            if duration_frame_remained <= 0:
+                note = next(notes, None)
+
             if note is None:
                 return Success(result_image)
+            else:
+                duration_frame_remained = note.duration_frame
 
             # # Get colour line that covered by note.
             line_result: PictureMonocolourLine
@@ -132,6 +138,7 @@ def burnSheetIntoImage(
                         f"`{channel_type}` in `burnSheetIntoImage`."
                     )
 
+            duration_frame_remained -= 1
             slot_index += 1
 
         result_image[i] = line
