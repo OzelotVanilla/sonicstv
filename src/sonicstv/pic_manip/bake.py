@@ -89,23 +89,28 @@ def burnSheetIntoImage(
     notes = iter(sheet.notes)
     note: Note | None = None
     slot_index = 0
+    duration_frame_remained = 0
 
     for i in range(sstv_spec.image_height):
         line = result_image[i].copy()
-
-        duration_frame_remained = 0
         for channel_index, channel_type in enumerate(sstv_spec.line_scan_sequence):
             if slot_index < sheet.offset_start:
                 slot_index += 1
                 continue
 
+            # If previous note already wrote, change to next.
             if duration_frame_remained <= 0:
                 note = next(notes, None)  # init also happens here
+                # If `notes` exausted, finish job
+                if note is None:
+                    return Success(result_image)
+                # If still note remains, update `duration_frame_remained`
+                else:
+                    duration_frame_remained = note.duration_frame
 
+            # Null guard (also for type checking).
             if note is None:
-                return Success(result_image)
-            else:
-                duration_frame_remained = note.duration_frame
+                return Failure("[ERR ]: Bad logic in source code. This line should not be reached.")
 
             # # Get colour line that covered by note.
             line_result: PictureMonocolourLine
