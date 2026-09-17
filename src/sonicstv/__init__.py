@@ -18,6 +18,8 @@ __all__ = [
     "PictureMonocolourLine", "LineProcessor",
 
     # # music
-    "Note", "SingleFreqNote",
+    # music note
+    "Note", "SingleFreqNote", "RestNote",
+    # music sheet
     "Sheet"
 ]
