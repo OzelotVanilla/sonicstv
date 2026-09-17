@@ -94,6 +94,8 @@ def burnSheetIntoImage(
     for i in range(sstv_spec.image_height):
         line = result_image[i].copy()
         for channel_index, channel_type in enumerate(sstv_spec.line_scan_sequence):
+            # OpenCV use different order (B/G/R), need to change.
+            image_channel_index = 1 - channel_index if channel_index < 2 else 2
             if slot_index < sheet.offset_start:
                 slot_index += 1
                 continue
@@ -116,12 +118,12 @@ def burnSheetIntoImage(
             line_result: PictureMonocolourLine
             # If rest note, leave component not change.
             if isinstance(note, RestNote):
-                line_result = image[i, :, channel_index].tolist()
+                line_result = image[i, :, image_channel_index].tolist()
             # If not rest note, use line processor to get processed line.
             else:
                 colour_value = note.getColourValue(sstv_spec)
                 line_result = line_process_algo(
-                    image[i, :, channel_index].tolist(),
+                    image[i, :, image_channel_index].tolist(),
                     colour_value,
                     sstv_spec
                 )
