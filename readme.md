@@ -10,8 +10,19 @@ It aims to make SSTV transmit-time recognisable melodic sound,
  while preserving the recognisability of picture.
 
 
+Installation
+--------
+
+Currently, since `sonicstv` is not published to `pypi`,
+ a local installation is required for running.
+Please clone this repository to local,
+ and run `utils/install_local_editable.py` using a Python version higher than `3.14`.
+Then, import such as `from sonicstv import bake` will be available.
+
+
 Usage
 --------
+
 Use `bake` to bake `Sheet` to a picture.
 
 ### Additional Note
