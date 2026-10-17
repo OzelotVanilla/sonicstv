@@ -11,3 +11,6 @@ experiments/**/output/
 
 # For Sound Visualiser (since it uses absolute path, not best for sharing)
 **/**.sv
+
+# For Python
+**/__pycache__/
